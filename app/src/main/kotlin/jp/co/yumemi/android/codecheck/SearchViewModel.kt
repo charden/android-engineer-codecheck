@@ -55,17 +55,17 @@ class SearchViewModel(
                 val forksCount = jsonItem.optLong("forks_conut")
                 val openIssuesCount = jsonItem.optLong("open_issues_count")
 
-                items.add(
-                    Item(
-                        name = name,
-                        ownerIconUrl = ownerIconUrl,
-                        language = context.getString(R.string.written_language, language),
-                        stargazersCount = stargazersCount,
-                        watchersCount = watchersCount,
-                        forksCount = forksCount,
-                        openIssuesCount = openIssuesCount
-                    )
+                val item = Item(
+                    name = name,
+                    ownerIconUrl = ownerIconUrl,
+                    language = context.getString(R.string.written_language, language),
+                    stargazersCount = stargazersCount,
+                    watchersCount = watchersCount,
+                    forksCount = forksCount,
+                    openIssuesCount = openIssuesCount
                 )
+
+                items.add(item)
             }
 
             lastSearchDate = Date()
