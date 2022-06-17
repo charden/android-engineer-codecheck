@@ -20,13 +20,21 @@ import org.json.JSONObject
 import java.util.*
 
 /**
- * TwoFragment で使う
+ * 検索画面用のViewModel
+ *
+ * @param context Context コンテキスト
  */
 class SearchViewModel(
     val context: Context
 ) : ViewModel() {
 
-    // 検索結果
+    /**
+     * GitHubのAPIからレポジトリを検索
+     *
+     * @param inputText String 検索する文字列
+     *
+     * @return  List<Item> レポジトリ検索結果
+     */
     fun searchResults(inputText: String): List<Item> = runBlocking {
         val client = HttpClient(Android)
 
@@ -43,7 +51,7 @@ class SearchViewModel(
             val items = mutableListOf<Item>()
 
             /**
-             * アイテムの個数分ループする
+             * jsonItemからItemのListに変換する
              */
             for (i in 0 until jsonItems.length()) {
                 val jsonItem = jsonItems.optJSONObject(i)!!

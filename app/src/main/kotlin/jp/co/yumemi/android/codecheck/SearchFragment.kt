@@ -14,6 +14,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.*
 import jp.co.yumemi.android.codecheck.databinding.FragmentSearchBinding
 
+/**
+ * 検索画面
+ */
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,6 +55,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
     }
 
+    /**
+     * レポジトリ詳細画面へ遷移する
+     */
     fun gotoRepositoryFragment(item: Item) {
         val action = SearchFragmentDirections
             .actionSearchFragmentToRepositoryFragment(item = item)
@@ -59,6 +65,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 }
 
+/**
+ * RecyclerViewで利用するためのItemクラスが同じかチェックする
+ */
 val diffUtil = object : DiffUtil.ItemCallback<Item>() {
     override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
         return oldItem.name == newItem.name
@@ -70,6 +79,11 @@ val diffUtil = object : DiffUtil.ItemCallback<Item>() {
 
 }
 
+/**
+ * RecyclerView用のAdapter
+ *
+ * @param itemClickListener OnItemClickListener Itemをクリックしたとき用Listener
+ */
 class CustomAdapter(
     private val itemClickListener: OnItemClickListener,
 ) : ListAdapter<Item, CustomAdapter.ViewHolder>(diffUtil) {
