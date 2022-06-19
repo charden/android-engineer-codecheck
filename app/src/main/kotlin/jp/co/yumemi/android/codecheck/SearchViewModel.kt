@@ -20,11 +20,8 @@ import org.json.JSONObject
 /**
  * 検索画面用のViewModel
  *
- * @param context Context コンテキスト
  */
-class SearchViewModel(
-    val context: Context
-) : ViewModel() {
+class SearchViewModel : ViewModel() {
 
     /**
      * GitHubのAPIからレポジトリを検索
@@ -67,7 +64,7 @@ class SearchViewModel(
                 val item = Item(
                     name = name,
                     ownerIconUrl = ownerIconUrl,
-                    language = context.getString(R.string.written_language, language),
+                    language = language,
                     stargazersCount = stargazersCount,
                     watchersCount = watchersCount,
                     forksCount = forksCount,
