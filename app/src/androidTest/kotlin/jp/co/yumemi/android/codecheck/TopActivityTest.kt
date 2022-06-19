@@ -18,7 +18,7 @@ class TopActivityTest {
     var mActivityScenarioRule = ActivityScenarioRule(TopActivity::class.java)
 
     @Test
-    fun topActivityTest() {
+    fun testSearchKotlin() {
         SearchPage().inputSearchText("Kotlin")
             .clickSearch()
             .assertRepositoryName(0, "JetBrains/kotlin")
@@ -26,5 +26,12 @@ class TopActivityTest {
             .assertDisplayImageView()
             .assertNameView()
             .assertLanguageView()
+    }
+
+    @Test
+    fun testSearchEmptyString() {
+        SearchPage().inputSearchText("")
+            .clickSearch()
+            .assertRecyclerViewSize(0)
     }
 }
