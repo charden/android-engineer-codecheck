@@ -4,15 +4,18 @@
 package jp.co.yumemi.android.codecheck
 
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
 /**
  * 検索画面用のViewModel
  *
  */
-class SearchViewModel(private val repository: ItemRepository) : ViewModel() {
+@HiltViewModel
+class SearchViewModel @Inject constructor(private val repository: ItemRepositoryImpl) : ViewModel() {
 
     /**
      * GitHubのAPIからレポジトリを検索

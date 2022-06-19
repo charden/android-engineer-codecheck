@@ -7,9 +7,11 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
 import jp.co.yumemi.android.codecheck.databinding.FragmentSearchBinding
@@ -18,7 +20,10 @@ import kotlinx.coroutines.Dispatchers
 /**
  * 検索画面
  */
+@AndroidEntryPoint
 class SearchFragment : Fragment(R.layout.fragment_search) {
+
+    private val viewModel: SearchViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,12 +31,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         val binding = FragmentSearchBinding.bind(view)
 
         val context = requireContext()
-        val client = HttpClient(Android)
-        val api = GitHubApi(client)
-        val dataSource = ItemRemoteDataSource(api, Dispatchers.IO)
-        val repository = ItemRepository(dataSource)
-        val viewModel = SearchViewModel(repository)
-
         val layoutManager = LinearLayoutManager(context)
         val dividerItemDecoration =
             DividerItemDecoration(context, layoutManager.orientation)
