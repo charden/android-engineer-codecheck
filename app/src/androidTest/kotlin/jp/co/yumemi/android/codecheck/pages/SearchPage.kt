@@ -44,7 +44,7 @@ class SearchPage {
      *
      * @return SearchPage
      */
-    fun assetRepositoryName(position: Int, text: String): SearchPage {
+    fun assertRepositoryName(position: Int, text: String): SearchPage {
         onView(
             allOf
                 (
