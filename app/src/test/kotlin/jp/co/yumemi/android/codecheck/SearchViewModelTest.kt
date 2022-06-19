@@ -13,7 +13,7 @@ class SearchViewModelTest {
     fun setup() {
         val api = MockApi()
         val dataSource = ItemRemoteDataSource(api, Dispatchers.IO)
-        val repository = ItemRepository(dataSource)
+        val repository = ItemRepositoryImpl(dataSource)
         viewModel = SearchViewModel(repository)
     }
 

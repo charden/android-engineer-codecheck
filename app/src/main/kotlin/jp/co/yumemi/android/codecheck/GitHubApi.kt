@@ -5,8 +5,9 @@ import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import org.json.JSONObject
+import javax.inject.Inject
 
-class GitHubApi(private val client: HttpClient) : Api {
+class GitHubApi @Inject constructor(private val client: HttpClient) : Api {
     override suspend fun fetchRepositories(inputText: String): List<Item> {
         val response: HttpResponse = client.get("https://api.github.com/search/repositories") {
             header("Accept", "application/vnd.github.v3+json")
