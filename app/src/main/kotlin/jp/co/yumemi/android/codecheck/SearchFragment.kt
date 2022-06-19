@@ -24,11 +24,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         val binding = FragmentSearchBinding.bind(view)
 
-        val viewModel = SearchViewModel(context!!)
+        val context = requireContext()
+        val viewModel = SearchViewModel(context)
 
-        val layoutManager = LinearLayoutManager(context!!)
+        val layoutManager = LinearLayoutManager(context)
         val dividerItemDecoration =
-            DividerItemDecoration(context!!, layoutManager.orientation)
+            DividerItemDecoration(context, layoutManager.orientation)
         val adapter = CustomAdapter(object : CustomAdapter.OnItemClickListener {
             override fun itemClick(item: Item) {
                 gotoRepositoryFragment(item)
