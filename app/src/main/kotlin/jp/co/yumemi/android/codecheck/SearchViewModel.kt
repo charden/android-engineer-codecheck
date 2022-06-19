@@ -4,17 +4,15 @@
 package jp.co.yumemi.android.codecheck
 
 import androidx.lifecycle.ViewModel
-import io.ktor.client.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
-import org.json.JSONObject
 
 /**
  * 検索画面用のViewModel
  *
  */
-class SearchViewModel(private val client: HttpClient) : ViewModel() {
+class SearchViewModel(private val repository: ItemRepository) : ViewModel() {
 
     /**
      * GitHubのAPIからレポジトリを検索
@@ -27,7 +25,7 @@ class SearchViewModel(private val client: HttpClient) : ViewModel() {
         if (inputText == "") return@runBlocking mutableListOf<Item>()
 
         return@runBlocking GlobalScope.async {
-            return@async ItemRepository(client).fetchRepositories(inputText)
+            return@async repository.fetchRepositories(inputText)
         }.await()
     }
 }
