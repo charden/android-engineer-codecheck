@@ -3,12 +3,10 @@
  */
 package jp.co.yumemi.android.codecheck
 
-import android.content.Context
 import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import io.ktor.client.*
 import io.ktor.client.call.*
-import io.ktor.client.engine.android.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import kotlinx.coroutines.GlobalScope
@@ -21,7 +19,7 @@ import org.json.JSONObject
  * 検索画面用のViewModel
  *
  */
-class SearchViewModel : ViewModel() {
+class SearchViewModel(private val client: HttpClient) : ViewModel() {
 
     /**
      * GitHubのAPIからレポジトリを検索
@@ -31,8 +29,6 @@ class SearchViewModel : ViewModel() {
      * @return  List<Item> レポジトリ検索結果
      */
     fun searchResults(inputText: String): List<Item> = runBlocking {
-        val client = HttpClient(Android)
-
         if (inputText == "") return@runBlocking mutableListOf<Item>()
 
         return@runBlocking GlobalScope.async {
@@ -60,7 +56,7 @@ class SearchViewModel : ViewModel() {
                 val language = jsonItem.optString("language")
                 val stargazersCount = jsonItem.optLong("stargazers_count")
                 val watchersCount = jsonItem.optLong("watchers_count")
-                val forksCount = jsonItem.optLong("forks_conut")
+                val forksCount = jsonItem.optLong("forks_count")
                 val openIssuesCount = jsonItem.optLong("open_issues_count")
 
                 val item = Item(

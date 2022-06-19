@@ -12,6 +12,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.*
+import io.ktor.client.*
+import io.ktor.client.engine.android.*
 import jp.co.yumemi.android.codecheck.databinding.FragmentSearchBinding
 
 /**
@@ -25,7 +27,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         val binding = FragmentSearchBinding.bind(view)
 
         val context = requireContext()
-        val viewModel = SearchViewModel()
+        val viewModel = SearchViewModel(HttpClient(Android))
 
         val layoutManager = LinearLayoutManager(context)
         val dividerItemDecoration =
