@@ -8,6 +8,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.*
 import jp.co.yumemi.android.codecheck.CustomAdapter
 import jp.co.yumemi.android.codecheck.R
+import jp.co.yumemi.android.codecheck.utils.RecyclerViewUtils.recyclerViewSizeMatcher
 import jp.co.yumemi.android.codecheck.utils.RecyclerViewUtils.withItemViewAtPosition
 import org.hamcrest.core.AllOf.allOf
 
@@ -44,7 +45,7 @@ class SearchPage {
      *
      * @return SearchPage
      */
-    fun assetRepositoryName(position: Int, text: String): SearchPage {
+    fun assertRepositoryName(position: Int, text: String): SearchPage {
         onView(
             allOf
                 (
@@ -58,6 +59,18 @@ class SearchPage {
             )
         )
             .check(matches(withText(text)))
+        return this
+    }
+
+    /**
+     * RecyclerViewのサイズをチェックする
+     *
+     * @param size Int チェックするサイズ
+     *
+     * @return SearchPage
+     */
+    fun assertRecyclerViewSize(size: Int): SearchPage {
+        onView(withId(R.id.recyclerView)).check(matches(recyclerViewSizeMatcher(size)))
         return this
     }
 

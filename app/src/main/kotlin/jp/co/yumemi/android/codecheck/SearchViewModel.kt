@@ -20,11 +20,8 @@ import org.json.JSONObject
 /**
  * 検索画面用のViewModel
  *
- * @param context Context コンテキスト
  */
-class SearchViewModel(
-    val context: Context
-) : ViewModel() {
+class SearchViewModel : ViewModel() {
 
     /**
      * GitHubのAPIからレポジトリを検索
@@ -35,6 +32,8 @@ class SearchViewModel(
      */
     fun searchResults(inputText: String): List<Item> = runBlocking {
         val client = HttpClient(Android)
+
+        if (inputText == "") return@runBlocking mutableListOf<Item>()
 
         return@runBlocking GlobalScope.async {
             val response: HttpResponse = client.get("https://api.github.com/search/repositories") {
@@ -67,7 +66,7 @@ class SearchViewModel(
                 val item = Item(
                     name = name,
                     ownerIconUrl = ownerIconUrl,
-                    language = context.getString(R.string.written_language, language),
+                    language = language,
                     stargazersCount = stargazersCount,
                     watchersCount = watchersCount,
                     forksCount = forksCount,
