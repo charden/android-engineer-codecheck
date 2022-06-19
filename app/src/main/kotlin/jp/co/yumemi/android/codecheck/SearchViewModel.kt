@@ -11,13 +11,11 @@ import io.ktor.client.call.*
 import io.ktor.client.engine.android.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
-import jp.co.yumemi.android.codecheck.TopActivity.Companion.lastSearchDate
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import kotlinx.parcelize.Parcelize
 import org.json.JSONObject
-import java.util.*
 
 /**
  * 検索画面用のViewModel
@@ -75,8 +73,6 @@ class SearchViewModel(
 
                 items.add(item)
             }
-
-            lastSearchDate = Date()
 
             return@async items.toList()
         }.await()
