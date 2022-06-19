@@ -30,12 +30,9 @@ class SearchViewModel(private val client: HttpClient) : ViewModel() {
         if (inputText == "") return@runBlocking mutableListOf<Item>()
 
         return@runBlocking GlobalScope.async {
-            val response: HttpResponse = client.get("https://api.github.com/search/repositories") {
-                header("Accept", "application/vnd.github.v3+json")
-                parameter("q", inputText)
-            }
+            val responseString: String = fetchRepositories(inputText)
 
-            val jsonBody = JSONObject(response.receive<String>())
+            val jsonBody = JSONObject(responseString)
 
             val jsonItems = jsonBody.optJSONArray("items")
 
@@ -48,29 +45,46 @@ class SearchViewModel(private val client: HttpClient) : ViewModel() {
              */
             for (i in 0 until jsonItems.length()) {
                 val jsonItem = jsonItems.optJSONObject(i) ?: continue
-
-                val name = jsonItem.optString("full_name")
-                val ownerIconUrl = jsonItem.optJSONObject("owner")?.optString("avatar_url") ?: ""
-                val language = jsonItem.optString("language")
-                val stargazersCount = jsonItem.optLong("stargazers_count")
-                val watchersCount = jsonItem.optLong("watchers_count")
-                val forksCount = jsonItem.optLong("forks_count")
-                val openIssuesCount = jsonItem.optLong("open_issues_count")
-
-                val item = Item(
-                    name = name,
-                    ownerIconUrl = ownerIconUrl,
-                    language = language,
-                    stargazersCount = stargazersCount,
-                    watchersCount = watchersCount,
-                    forksCount = forksCount,
-                    openIssuesCount = openIssuesCount
-                )
-
+                val item = parseItem(jsonItem)
                 items.add(item)
             }
 
             return@async items.toList()
         }.await()
+    }
+
+    private suspend fun fetchRepositories(inputText: String): String {
+        val response: HttpResponse = client.get("https://api.github.com/search/repositories") {
+            header("Accept", "application/vnd.github.v3+json")
+            parameter("q", inputText)
+        }
+        return response.receive()
+    }
+
+    /**
+     * JSONObjectからItemを作成
+     *
+     * @param jsonItem JSONObject
+     *
+     * @return Item
+     */
+    private fun parseItem(jsonItem: JSONObject): Item {
+        val name = jsonItem.optString("full_name")
+        val ownerIconUrl = jsonItem.optJSONObject("owner")?.optString("avatar_url") ?: ""
+        val language = jsonItem.optString("language")
+        val stargazersCount = jsonItem.optLong("stargazers_count")
+        val watchersCount = jsonItem.optLong("watchers_count")
+        val forksCount = jsonItem.optLong("forks_count")
+        val openIssuesCount = jsonItem.optLong("open_issues_count")
+
+        return Item(
+            name = name,
+            ownerIconUrl = ownerIconUrl,
+            language = language,
+            stargazersCount = stargazersCount,
+            watchersCount = watchersCount,
+            forksCount = forksCount,
+            openIssuesCount = openIssuesCount
+        )
     }
 }
