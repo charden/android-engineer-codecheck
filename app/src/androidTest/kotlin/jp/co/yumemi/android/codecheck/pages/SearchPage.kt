@@ -34,6 +34,8 @@ class SearchPage {
      */
     fun clickSearch(): SearchPage {
         onView(withId(R.id.searchInputText)).perform(ViewActions.pressImeActionButton())
+        //TODO: 一時的にsleepで対応する テストが遅くなるので修正する
+        Thread.sleep(2000)
         return this
     }
 

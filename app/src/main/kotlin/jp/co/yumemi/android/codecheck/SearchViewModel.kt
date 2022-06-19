@@ -4,10 +4,11 @@
 package jp.co.yumemi.android.codecheck
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -17,6 +18,9 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(private val repository: ItemRepositoryImpl) : ViewModel() {
 
+    private val _result = MutableStateFlow<List<Item>>(emptyList())
+    val result: StateFlow<List<Item>> = _result
+
     /**
      * GitHubのAPIからレポジトリを検索
      *
@@ -24,11 +28,11 @@ class SearchViewModel @Inject constructor(private val repository: ItemRepository
      *
      * @return  List<Item> レポジトリ検索結果
      */
-    fun searchResults(inputText: String): List<Item> = runBlocking {
-        if (inputText == "") return@runBlocking mutableListOf<Item>()
+    fun search(inputText: String) {
+        if (inputText == "") return
 
-        return@runBlocking GlobalScope.async {
-            return@async repository.fetchRepositories(inputText)
-        }.await()
+        viewModelScope.launch {
+            _result.value = repository.fetchRepositories(inputText)
+        }
     }
 }

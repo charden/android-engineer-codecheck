@@ -8,14 +8,13 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import io.ktor.client.*
-import io.ktor.client.engine.android.*
 import jp.co.yumemi.android.codecheck.databinding.FragmentSearchBinding
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * 検索画面
@@ -44,13 +43,17 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             .setOnEditorActionListener { editText, action, _ ->
                 if (action == EditorInfo.IME_ACTION_SEARCH) {
                     val inputText = editText.text.toString()
-                    val searchResults = viewModel.searchResults(inputText)
-                    adapter.submitList(searchResults)
+                    viewModel.search(inputText)
+
 
                     return@setOnEditorActionListener true
                 }
                 return@setOnEditorActionListener false
             }
+
+        lifecycleScope.launch {
+            viewModel.result.collect { result -> adapter.submitList(result) }
+        }
 
         binding.recyclerView.also {
             it.layoutManager = layoutManager
