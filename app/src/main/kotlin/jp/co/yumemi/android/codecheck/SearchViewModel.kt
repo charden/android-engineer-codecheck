@@ -30,7 +30,7 @@ class SearchViewModel(private val client: HttpClient) : ViewModel() {
         if (inputText == "") return@runBlocking mutableListOf<Item>()
 
         return@runBlocking GlobalScope.async {
-            val responseString: String = fetchRepositories(inputText)
+            val responseString: String = GitHubApi(client).fetchRepositories(inputText)
 
             val jsonBody = JSONObject(responseString)
 
@@ -51,14 +51,6 @@ class SearchViewModel(private val client: HttpClient) : ViewModel() {
 
             return@async items.toList()
         }.await()
-    }
-
-    private suspend fun fetchRepositories(inputText: String): String {
-        val response: HttpResponse = client.get("https://api.github.com/search/repositories") {
-            header("Accept", "application/vnd.github.v3+json")
-            parameter("q", inputText)
-        }
-        return response.receive()
     }
 
     /**
