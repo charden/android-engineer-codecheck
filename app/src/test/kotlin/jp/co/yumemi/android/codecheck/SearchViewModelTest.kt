@@ -10,18 +10,20 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 class SearchViewModelTest {
-
-    @Test
-    fun kotlinで検索したときに正常に返り値が得られること() {
+    private fun getViewModel(filename: String): SearchViewModel {
         val mockEngine = MockEngine {
             respond(
-                content = ByteReadChannel(JsonLoadHelper.loadJsonAsString("repositories.json")),
+                content = ByteReadChannel(JsonLoadHelper.loadJsonAsString(filename)),
                 status = HttpStatusCode.OK,
                 headers = headersOf(HttpHeaders.ContentType, "application/json")
             )
         }
         val client = HttpClient(mockEngine)
-        val viewModel = SearchViewModel(client)
+        return SearchViewModel(client)
+    }
+    @Test
+    fun kotlinで検索したときに正常に返り値が得られること() {
+        val viewModel = getViewModel("kotlin.json")
         val item = listOf(
             Item(
                 "JetBrains/kotlin",
@@ -50,12 +52,10 @@ class SearchViewModelTest {
 
     @Test
     fun 空文字で検索したときに正常に返り値が得られること() {
-        val mockEngine = MockEngine {
-            respond(
-                content = ByteReadChannel(""),
-                status = HttpStatusCode.OK,
-                headers = headersOf(HttpHeaders.ContentType, "application/json")
-            )
+        val viewModel = getViewModel("kotlin.json")
+        runBlocking {
+            val result = viewModel.searchResults("")
+            assertEquals(result, listOf<Item>())
         }
         val client = HttpClient(mockEngine)
         val viewModel = SearchViewModel(client)
