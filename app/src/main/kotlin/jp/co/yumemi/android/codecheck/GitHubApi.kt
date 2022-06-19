@@ -8,6 +8,14 @@ import org.json.JSONObject
 import javax.inject.Inject
 
 class GitHubApi @Inject constructor(private val client: HttpClient) : Api {
+
+    /**
+     * GitHub APIで引数に指定された文字列のレポジトリを検索する
+     *
+     * @param inputText String 検索する文字列
+     *
+     * @return List<Item>
+     */
     override suspend fun fetchRepositories(inputText: String): List<Item> {
         val response: HttpResponse = client.get("https://api.github.com/search/repositories") {
             header("Accept", "application/vnd.github.v3+json")
@@ -17,8 +25,15 @@ class GitHubApi @Inject constructor(private val client: HttpClient) : Api {
         return parseJsonString(response.receive())
     }
 
-    private fun parseJsonString(responseString: String): List<Item> {
-        val jsonBody = JSONObject(responseString)
+    /**
+     * jsonStringをList<Item>に変換する
+     *
+     * @param jsonString String Json文字列
+     *
+     * @return List<Item>
+     */
+    private fun parseJsonString(jsonString: String): List<Item> {
+        val jsonBody = JSONObject(jsonString)
 
         val jsonItems = jsonBody.optJSONArray("items")
 
@@ -26,9 +41,6 @@ class GitHubApi @Inject constructor(private val client: HttpClient) : Api {
 
         if (jsonItems == null) return items.toList()
 
-        /**
-         * jsonItemからItemのListに変換する
-         */
         for (i in 0 until jsonItems.length()) {
             val jsonItem = jsonItems.optJSONObject(i) ?: continue
             val item = parseItem(jsonItem)

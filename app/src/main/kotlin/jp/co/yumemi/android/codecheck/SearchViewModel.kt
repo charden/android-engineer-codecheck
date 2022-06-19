@@ -22,11 +22,10 @@ class SearchViewModel @Inject constructor(private val repository: ItemRepository
     val result: StateFlow<List<Item>> = _result
 
     /**
-     * GitHubのAPIからレポジトリを検索
+     * inputTextで検索する
      *
      * @param inputText String 検索する文字列
      *
-     * @return  List<Item> レポジトリ検索結果
      */
     fun search(inputText: String) {
         if (inputText == "") return
