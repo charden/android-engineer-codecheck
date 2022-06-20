@@ -1,9 +1,10 @@
-package jp.co.yumemi.android.codecheck
+package jp.co.yumemi.android.codecheck.data.remote
 
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
+import jp.co.yumemi.android.codecheck.model.Item
 import org.json.JSONObject
 import javax.inject.Inject
 

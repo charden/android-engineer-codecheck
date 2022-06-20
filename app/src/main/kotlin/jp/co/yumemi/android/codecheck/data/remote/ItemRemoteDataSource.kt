@@ -1,5 +1,7 @@
-package jp.co.yumemi.android.codecheck
+package jp.co.yumemi.android.codecheck.data.remote
 
+import jp.co.yumemi.android.codecheck.data.remote.Api
+import jp.co.yumemi.android.codecheck.model.Item
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

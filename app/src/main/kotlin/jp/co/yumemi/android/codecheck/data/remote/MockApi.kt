@@ -1,4 +1,6 @@
-package jp.co.yumemi.android.codecheck
+package jp.co.yumemi.android.codecheck.data.remote
+
+import jp.co.yumemi.android.codecheck.model.Item
 
 class MockApi: Api {
     val baseItems = listOf(

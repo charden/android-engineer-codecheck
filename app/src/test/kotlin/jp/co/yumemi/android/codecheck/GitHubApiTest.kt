@@ -4,7 +4,10 @@ import io.ktor.client.*
 import io.ktor.client.engine.mock.*
 import io.ktor.http.*
 import io.ktor.utils.io.*
+import jp.co.yumemi.android.codecheck.data.remote.GitHubApi
+import jp.co.yumemi.android.codecheck.data.remote.MockApi
 import jp.co.yumemi.android.codecheck.helper.JsonLoadHelper
+import jp.co.yumemi.android.codecheck.model.Item
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test

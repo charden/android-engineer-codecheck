@@ -1,6 +1,7 @@
-package jp.co.yumemi.android.codecheck
+package jp.co.yumemi.android.codecheck.util
 
 import androidx.recyclerview.widget.DiffUtil
+import jp.co.yumemi.android.codecheck.model.Item
 
 /**
  * RecyclerViewで利用するためのItemクラスが同じかチェックする
