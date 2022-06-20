@@ -1,4 +1,4 @@
-package jp.co.yumemi.android.codecheck
+package jp.co.yumemi.android.codecheck.ui.search
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import jp.co.yumemi.android.codecheck.util.DiffUtil
+import jp.co.yumemi.android.codecheck.R
+import jp.co.yumemi.android.codecheck.model.Item
 
 /**
  * RecyclerView用のAdapter

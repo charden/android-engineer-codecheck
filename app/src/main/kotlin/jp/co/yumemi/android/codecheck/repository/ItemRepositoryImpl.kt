@@ -1,5 +1,7 @@
 package jp.co.yumemi.android.codecheck
 
+import jp.co.yumemi.android.codecheck.data.remote.ItemRemoteDataSource
+import jp.co.yumemi.android.codecheck.model.Item
 import javax.inject.Inject
 
 class ItemRepositoryImpl @Inject constructor(private val remoteDataSource: ItemRemoteDataSource): ItemRepository {

@@ -6,9 +6,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
-import jp.co.yumemi.android.codecheck.Api
-import jp.co.yumemi.android.codecheck.GitHubApi
-import jp.co.yumemi.android.codecheck.ItemRemoteDataSource
+import jp.co.yumemi.android.codecheck.data.remote.Api
+import jp.co.yumemi.android.codecheck.data.remote.GitHubApi
+import jp.co.yumemi.android.codecheck.data.remote.ItemRemoteDataSource
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 

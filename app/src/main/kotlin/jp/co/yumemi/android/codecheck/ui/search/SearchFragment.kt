@@ -1,7 +1,7 @@
 /*
  * Copyright © 2021 YUMEMI Inc. All rights reserved.
  */
-package jp.co.yumemi.android.codecheck
+package jp.co.yumemi.android.codecheck.ui.search
 
 import android.os.Bundle
 import android.view.View
@@ -13,7 +13,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import jp.co.yumemi.android.codecheck.R
 import jp.co.yumemi.android.codecheck.databinding.FragmentSearchBinding
+import jp.co.yumemi.android.codecheck.model.Item
 import kotlinx.coroutines.launch
 
 /**

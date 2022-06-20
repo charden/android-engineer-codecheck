@@ -1,13 +1,13 @@
 package jp.co.yumemi.android.codecheck
 
+import jp.co.yumemi.android.codecheck.data.remote.ItemRemoteDataSource
+import jp.co.yumemi.android.codecheck.data.remote.MockApi
+import jp.co.yumemi.android.codecheck.model.Item
+import jp.co.yumemi.android.codecheck.ui.search.SearchViewModel
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.*
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
