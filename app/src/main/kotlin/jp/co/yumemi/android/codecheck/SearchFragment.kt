@@ -44,8 +44,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 if (action == EditorInfo.IME_ACTION_SEARCH) {
                     val inputText = editText.text.toString()
                     viewModel.search(inputText)
-
-
                     return@setOnEditorActionListener true
                 }
                 return@setOnEditorActionListener false
