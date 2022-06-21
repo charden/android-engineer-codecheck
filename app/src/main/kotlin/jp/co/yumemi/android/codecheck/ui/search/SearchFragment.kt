@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import jp.co.yumemi.android.codecheck.R
 import jp.co.yumemi.android.codecheck.databinding.FragmentSearchBinding
@@ -45,6 +46,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             .setOnEditorActionListener { editText, action, _ ->
                 if (action == EditorInfo.IME_ACTION_SEARCH) {
                     val inputText = editText.text.toString()
+                    if (inputText == "") {
+                        val snackbar = Snackbar.make(
+                            view,
+                            getString(R.string.search_error),
+                            Snackbar.LENGTH_SHORT
+                        )
+                        snackbar.show()
+                    }
                     viewModel.search(inputText)
                     return@setOnEditorActionListener true
                 }

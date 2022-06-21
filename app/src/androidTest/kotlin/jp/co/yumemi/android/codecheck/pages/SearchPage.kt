@@ -91,5 +91,11 @@ class SearchPage {
         return RepositoryPage()
     }
 
-
+    /**
+     * エラー文言が表示されていること
+     */
+    fun assertErrorMessage() {
+        onView(withText(R.string.search_error))
+            .check(matches(isDisplayed()))
+    }
 }
