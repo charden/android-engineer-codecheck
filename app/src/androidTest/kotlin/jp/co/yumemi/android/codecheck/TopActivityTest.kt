@@ -72,5 +72,6 @@ class TopActivityTest {
         SearchPage().inputSearchText("")
             .clickSearch()
             .assertRecyclerViewSize(0)
+            .assertErrorMessage()
     }
 }
