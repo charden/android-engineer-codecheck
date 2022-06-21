@@ -6,8 +6,8 @@ package jp.co.yumemi.android.codecheck.ui.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jp.co.yumemi.android.codecheck.model.Item
 import jp.co.yumemi.android.codecheck.repository.ItemRepositoryImpl
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -18,10 +18,11 @@ import javax.inject.Inject
  *
  */
 @HiltViewModel
-class SearchViewModel @Inject constructor(private val repository: ItemRepositoryImpl) : ViewModel() {
+class SearchViewModel @Inject constructor(private val repository: ItemRepositoryImpl) :
+    ViewModel() {
 
-    private val _result = MutableStateFlow<List<Item>>(emptyList())
-    val result: StateFlow<List<Item>> = _result
+    private val _result = MutableStateFlow<SearchUiState>(SearchUiState.Success(emptyList()))
+    val result: StateFlow<SearchUiState> = _result
 
     /**
      * inputTextで検索する
@@ -31,9 +32,12 @@ class SearchViewModel @Inject constructor(private val repository: ItemRepository
      */
     fun search(inputText: String) {
         if (inputText == "") return
-
-        viewModelScope.launch {
-            _result.value = repository.fetchRepositories(inputText)
+        _result.value = SearchUiState.Loading()
+        val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            _result.value = SearchUiState.Failure(throwable)
+        }
+        viewModelScope.launch(exceptionHandler) {
+            _result.value = SearchUiState.Success(repository.fetchRepositories(inputText))
         }
     }
 }

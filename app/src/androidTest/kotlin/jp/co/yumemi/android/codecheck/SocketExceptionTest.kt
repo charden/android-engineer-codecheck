@@ -27,7 +27,7 @@ import javax.inject.Singleton
 @UninstallModules(NetworkModule::class)
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class TopActivityTest {
+class SocketExceptionTest {
 
     @get:Rule(order = 0)
     var hiltRule = HiltAndroidRule(this)
@@ -42,7 +42,7 @@ class TopActivityTest {
         @Provides
         @Singleton
         fun provideApi(): Api {
-            return MockApi(MockApi.Status.Success)
+            return MockApi(MockApi.Status.SocketException)
         }
 
         @Provides
@@ -53,25 +53,9 @@ class TopActivityTest {
     }
 
     @Test
-    fun testSearchKotlin() {
-        SearchPage().inputSearchText("Kotlin")
+    fun SocketExceptionが発生したときにerror_timeoutの文言が表示されること() {
+        SearchPage().inputSearchText("kotlin")
             .clickSearch()
-            .assertRepositoryName(0, "JetBrains/kotlin")
-            .clickItem(0)
-            .assertDisplayImageView()
-            .assertNameView()
-            .assertLanguageView()
-            .assertStarsView()
-            .assertWatchersView()
-            .assertForksView()
-            .assertOpenIssuesView()
-    }
-
-    @Test
-    fun testSearchEmptyString() {
-        SearchPage().inputSearchText("")
-            .clickSearch()
-            .assertRecyclerViewSize(0)
-            .assertErrorMessage(R.string.search_error)
+            .assertErrorMessage(R.string.error_timeout)
     }
 }
