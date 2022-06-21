@@ -6,8 +6,8 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.*
-import jp.co.yumemi.android.codecheck.ui.search.CustomAdapter
 import jp.co.yumemi.android.codecheck.R
+import jp.co.yumemi.android.codecheck.ui.search.CustomAdapter
 import jp.co.yumemi.android.codecheck.utils.RecyclerViewUtils.recyclerViewSizeMatcher
 import jp.co.yumemi.android.codecheck.utils.RecyclerViewUtils.withItemViewAtPosition
 import org.hamcrest.core.AllOf.allOf

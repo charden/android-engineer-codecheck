@@ -3,6 +3,7 @@ package jp.co.yumemi.android.codecheck
 import jp.co.yumemi.android.codecheck.data.remote.ItemRemoteDataSource
 import jp.co.yumemi.android.codecheck.data.remote.MockApi
 import jp.co.yumemi.android.codecheck.model.Item
+import jp.co.yumemi.android.codecheck.repository.ItemRepositoryImpl
 import jp.co.yumemi.android.codecheck.ui.search.SearchViewModel
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.Dispatchers
