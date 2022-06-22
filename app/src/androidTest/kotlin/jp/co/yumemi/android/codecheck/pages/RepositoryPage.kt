@@ -15,8 +15,8 @@ class RepositoryPage {
      * @return RepositoryPage
      */
     fun assertDisplayImageView(): RepositoryPage {
-        val imageView = Espresso.onView(ViewMatchers.withId(R.id.ownerIconView))
-        imageView.check(matches(isDisplayed()))
+        val ownerIconView = Espresso.onView(ViewMatchers.withId(R.id.ownerIconView))
+        ownerIconView.check(matches(isDisplayed()))
         return this
     }
 
@@ -26,8 +26,8 @@ class RepositoryPage {
      * @return RepositoryPage
      */
     fun assertNameView(): RepositoryPage {
-        val imageView = Espresso.onView(ViewMatchers.withId(R.id.nameView))
-        imageView.check(matches(withText("JetBrains/kotlin")))
+        val nameView = Espresso.onView(ViewMatchers.withId(R.id.nameView))
+        nameView.check(matches(withText("JetBrains/kotlin")))
         return this
     }
 
@@ -37,8 +37,8 @@ class RepositoryPage {
      * @return RepositoryPage
      */
     fun assertLanguageView(): RepositoryPage {
-        val imageView = Espresso.onView(ViewMatchers.withId(R.id.languageView))
-        imageView.check(matches(withText("Written in Kotlin")))
+        val languageView = Espresso.onView(ViewMatchers.withId(R.id.languageView))
+        languageView.check(matches(withText("Written in Kotlin")))
         return this
     }
 
@@ -48,8 +48,8 @@ class RepositoryPage {
      * @return RepositoryPage
      */
     fun assertStarsView(): RepositoryPage {
-        val imageView = Espresso.onView(ViewMatchers.withId(R.id.starsView))
-        imageView.check(matches(withText("41802 stars")))
+        val starsView = Espresso.onView(ViewMatchers.withId(R.id.starsView))
+        starsView.check(matches(withText("41802\n stars")))
         return this
     }
 
@@ -59,8 +59,8 @@ class RepositoryPage {
      * @return RepositoryPage
      */
     fun assertWatchersView(): RepositoryPage {
-        val imageView = Espresso.onView(ViewMatchers.withId(R.id.watchersView))
-        imageView.check(matches(withText("41802 watchers")))
+        val watchersView = Espresso.onView(ViewMatchers.withId(R.id.watchersView))
+        watchersView.check(matches(withText("41802\n watchers")))
         return this
     }
 
@@ -70,8 +70,8 @@ class RepositoryPage {
      * @return RepositoryPage
      */
     fun assertForksView(): RepositoryPage {
-        val imageView = Espresso.onView(ViewMatchers.withId(R.id.forksView))
-        imageView.check(matches(withText("5162 forks")))
+        val forksView = Espresso.onView(ViewMatchers.withId(R.id.forksView))
+        forksView.check(matches(withText("5162\n forks")))
         return this
     }
 
@@ -81,8 +81,8 @@ class RepositoryPage {
      * @return RepositoryPage
      */
     fun assertOpenIssuesView(): RepositoryPage {
-        val imageView = Espresso.onView(ViewMatchers.withId(R.id.openIssuesView))
-        imageView.check(matches(withText("147 open issues")))
+        val openIssuesView = Espresso.onView(ViewMatchers.withId(R.id.openIssuesView))
+        openIssuesView.check(matches(withText("147\n open issues")))
         return this
     }
 }
