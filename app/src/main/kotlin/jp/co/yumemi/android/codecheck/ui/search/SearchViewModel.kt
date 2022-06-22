@@ -31,8 +31,11 @@ class SearchViewModel @Inject constructor(private val repository: ItemRepository
      *
      */
     fun search(inputText: String) {
-        if (inputText == "") return
-        _result.value = SearchUiState.Loading()
+        if (inputText == "") {
+            _result.value = SearchUiState.EmptyInput
+            return
+        }
+        _result.value = SearchUiState.Loading
         val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
             _result.value = SearchUiState.Failure(throwable)
         }
