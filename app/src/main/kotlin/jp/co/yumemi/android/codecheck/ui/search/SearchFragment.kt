@@ -3,9 +3,12 @@
  */
 package jp.co.yumemi.android.codecheck.ui.search
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -51,9 +54,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             .setOnEditorActionListener { editText, action, _ ->
                 if (action == EditorInfo.IME_ACTION_SEARCH) {
                     val inputText = editText.text.toString()
-                    if (inputText == "") {
-                        showSnackBar(view, getString(R.string.search_error))
-                    }
                     viewModel.search(inputText)
                     return@setOnEditorActionListener true
                 }
@@ -66,7 +66,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     when (uiState) {
                         is SearchUiState.Success -> showItem(adapter, uiState.data)
                         is SearchUiState.Failure -> showError(view, uiState.e)
-                        is SearchUiState.Loading -> showLoading()
+                        is SearchUiState.Loading -> showLoading(view)
+                        is SearchUiState.EmptyInput -> showSnackBar(view, getString(R.string.search_error))
                     }
                 }
             }
@@ -77,6 +78,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             it.addItemDecoration(dividerItemDecoration)
             it.adapter = adapter
         }
+    }
+
+    private fun hideKeyboard(view: View) {
+        val system = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        system?.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun showItem(adapter: CustomAdapter, items: List<Item>) {
@@ -90,7 +96,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         showSnackBar(view, ErrorMessage(throwable).getMessage(requireContext()))
     }
 
-    private fun showLoading() {
+    private fun showLoading(view: View) {
+        hideKeyboard(view)
         binding.loading.visibility = View.VISIBLE
     }
 
