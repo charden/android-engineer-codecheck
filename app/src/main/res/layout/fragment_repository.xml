@@ -51,12 +51,7 @@
 
     <TextView
         android:id="@+id/starsView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="8dp"
-        android:textAlignment="center"
-        android:textSize="16sp"
+        style="@style/repositoryTextView"
         app:layout_constraintEnd_toStartOf="@id/centerGuid"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/languageView"
@@ -64,12 +59,7 @@
 
     <TextView
         android:id="@+id/watchersView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="8dp"
-        android:textAlignment="center"
-        android:textSize="16sp"
+        style="@style/repositoryTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/centerGuid"
         app:layout_constraintTop_toBottomOf="@id/languageView"
@@ -77,12 +67,7 @@
 
     <TextView
         android:id="@+id/forksView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="8dp"
-        android:textAlignment="center"
-        android:textSize="16sp"
+        style="@style/repositoryTextView"
         app:layout_constraintEnd_toStartOf="@id/centerGuid"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/starsView"
@@ -90,12 +75,7 @@
 
     <TextView
         android:id="@+id/openIssuesView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="8dp"
-        android:textAlignment="center"
-        android:textSize="16sp"
+        style="@style/repositoryTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/centerGuid"
         app:layout_constraintTop_toBottomOf="@id/watchersView"
