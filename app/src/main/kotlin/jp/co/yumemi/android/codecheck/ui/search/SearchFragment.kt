@@ -8,7 +8,9 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,11 +61,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
 
         lifecycleScope.launch {
-            viewModel.result.collect { uiState ->
-                when (uiState) {
-                    is SearchUiState.Success -> showItem(adapter, uiState.data)
-                    is SearchUiState.Failure -> showError(view, uiState.e)
-                    is SearchUiState.Loading -> showLoading()
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.result.collect { uiState ->
+                    when (uiState) {
+                        is SearchUiState.Success -> showItem(adapter, uiState.data)
+                        is SearchUiState.Failure -> showError(view, uiState.e)
+                        is SearchUiState.Loading -> showLoading()
+                    }
                 }
             }
         }
