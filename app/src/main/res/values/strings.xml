@@ -11,4 +11,5 @@
     <string name="error_unknown">不明なエラーが発生しました</string>
     <string name="error_timeout">通信がタイムアウトしました。\n通信状態の良い環境で再度お試しください。</string>
     <string name="error_parse">取得したデータが正常に表示できません。</string>
+    <string name="owner_avatar_image">owner avater image</string>
 </resources>

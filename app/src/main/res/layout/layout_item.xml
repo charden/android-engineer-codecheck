@@ -4,7 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
     android:background="?attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/repositoryImageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/repositoryNameView"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/jetbrains"
+        android:contentDescription="@string/owner_avatar_image" />
 
     <TextView
         android:id="@+id/repositoryNameView"
@@ -16,7 +29,7 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/repositoryImageView"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="JetBrains/kotlin" />
 
