@@ -1,11 +1,13 @@
 package jp.co.yumemi.android.codecheck.pages
 
 import androidx.annotation.StringRes
+import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import jp.co.yumemi.android.codecheck.R
 import jp.co.yumemi.android.codecheck.ui.search.CustomAdapter
@@ -62,6 +64,27 @@ class SearchPage {
             )
         )
             .check(matches(withText(text)))
+        return this
+    }
+
+    /**
+     * ownerIconViewが表示されていることのチェック
+     *
+     * @return RepositoryPage
+     */
+    fun assertRepositoryImageView(position: Int): SearchPage {
+        onView(
+            allOf
+                (
+                isDescendantOfA(
+                    withItemViewAtPosition(
+                        withId(R.id.recyclerView),
+                        position
+                    )
+                ),
+                withId(R.id.repositoryImageView)
+            )
+        ).check(matches(isDisplayed()))
         return this
     }
 
