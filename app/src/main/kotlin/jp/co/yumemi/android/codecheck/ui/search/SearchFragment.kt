@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -93,7 +92,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun showError(view: View, throwable: Throwable) {
         hideLoading()
 
-        showSnackBar(view, ErrorMessage(throwable).getMessage(requireContext()))
+        showSnackBar(view, getString(ErrorMessage(throwable).getMessageId()))
     }
 
     private fun showLoading(view: View) {
