@@ -57,6 +57,7 @@ class TopActivityTest {
         SearchPage().inputSearchText("Kotlin")
             .clickSearch()
             .assertRepositoryName(0, "JetBrains/kotlin")
+            .assertRepositoryImageView(0)
             .clickItem(0)
             .assertDisplayImageView()
             .assertNameView()
