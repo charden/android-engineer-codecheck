@@ -23,7 +23,7 @@ class GitHubApi @Inject constructor(private val client: HttpClient) : Api {
             parameter("q", inputText)
         }
 
-        return parseJsonString(response.receive())
+        return parseJsonString(response.body())
     }
 
     /**
