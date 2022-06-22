@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import jp.co.yumemi.android.codecheck.R
 import jp.co.yumemi.android.codecheck.databinding.FragmentSearchBinding
 import jp.co.yumemi.android.codecheck.model.Item
+import jp.co.yumemi.android.codecheck.ui.ErrorMessage
 import kotlinx.coroutines.launch
 
 /**
@@ -26,11 +27,13 @@ import kotlinx.coroutines.launch
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private val viewModel: SearchViewModel by viewModels()
+    private var _binding: FragmentSearchBinding? = null
+    private val binding get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val binding = FragmentSearchBinding.bind(view)
+        _binding = FragmentSearchBinding.bind(view)
 
         val context = requireContext()
         val layoutManager = LinearLayoutManager(context)
@@ -47,12 +50,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 if (action == EditorInfo.IME_ACTION_SEARCH) {
                     val inputText = editText.text.toString()
                     if (inputText == "") {
-                        val snackbar = Snackbar.make(
-                            view,
-                            getString(R.string.search_error),
-                            Snackbar.LENGTH_SHORT
-                        )
-                        snackbar.show()
+                        showSnackBar(view, getString(R.string.search_error))
                     }
                     viewModel.search(inputText)
                     return@setOnEditorActionListener true
@@ -61,7 +59,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
 
         lifecycleScope.launch {
-            viewModel.result.collect { result -> adapter.submitList(result) }
+            viewModel.result.collect { uiState ->
+                when (uiState) {
+                    is SearchUiState.Success -> showItem(adapter, uiState.data)
+                    is SearchUiState.Failure -> showError(view, uiState.e)
+                    is SearchUiState.Loading -> showLoading()
+                }
+            }
         }
 
         binding.recyclerView.also {
@@ -69,6 +73,34 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             it.addItemDecoration(dividerItemDecoration)
             it.adapter = adapter
         }
+    }
+
+    private fun showItem(adapter: CustomAdapter, items: List<Item>) {
+        hideLoading()
+        adapter.submitList(items)
+    }
+
+    private fun showError(view: View, throwable: Throwable) {
+        hideLoading()
+
+        showSnackBar(view, ErrorMessage(throwable).getMessage(requireContext()))
+    }
+
+    private fun showLoading() {
+        binding.loading.visibility = View.VISIBLE
+    }
+
+    private fun hideLoading() {
+        binding.loading.visibility = View.GONE
+    }
+
+    private fun showSnackBar(view: View, message: String) {
+        val snackBar = Snackbar.make(
+            view,
+            message,
+            Snackbar.LENGTH_SHORT
+        )
+        snackBar.show()
     }
 
     /**

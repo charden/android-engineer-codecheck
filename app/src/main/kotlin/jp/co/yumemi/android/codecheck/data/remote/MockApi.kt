@@ -1,8 +1,11 @@
 package jp.co.yumemi.android.codecheck.data.remote
 
 import jp.co.yumemi.android.codecheck.model.Item
+import org.json.JSONException
+import java.net.SocketException
+import java.net.UnknownHostException
 
-class MockApi: Api {
+class MockApi(private val status: Status = Status.Success) : Api {
     val baseItems = listOf(
         Item(
             "JetBrains/kotlin",
@@ -23,7 +26,24 @@ class MockApi: Api {
             13
         )
     )
+
+    enum class Status {
+        Success,
+        UnknownHostException,
+        ConnectException,
+        SocketException,
+        JSONException,
+        UNKNOWN
+    }
+
     override suspend fun fetchRepositories(inputText: String): List<Item> {
-        return baseItems
+        return when (status) {
+            Status.Success -> baseItems
+            Status.UnknownHostException -> throw UnknownHostException()
+            Status.ConnectException -> throw UnknownHostException()
+            Status.SocketException -> throw SocketException()
+            Status.JSONException -> throw JSONException("parse error")
+            Status.UNKNOWN -> throw Exception()
+        }
     }
 }

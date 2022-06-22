@@ -1,5 +1,6 @@
 package jp.co.yumemi.android.codecheck.pages
 
+import androidx.annotation.StringRes
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
@@ -94,8 +95,8 @@ class SearchPage {
     /**
      * エラー文言が表示されていること
      */
-    fun assertErrorMessage() {
-        onView(withText(R.string.search_error))
+    fun assertErrorMessage(@StringRes resId: Int) {
+        onView(withText(resId))
             .check(matches(isDisplayed()))
     }
 }

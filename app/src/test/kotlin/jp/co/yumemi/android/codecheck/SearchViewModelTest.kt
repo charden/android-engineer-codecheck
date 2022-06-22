@@ -4,6 +4,7 @@ import jp.co.yumemi.android.codecheck.data.remote.ItemRemoteDataSource
 import jp.co.yumemi.android.codecheck.data.remote.MockApi
 import jp.co.yumemi.android.codecheck.model.Item
 import jp.co.yumemi.android.codecheck.repository.ItemRepositoryImpl
+import jp.co.yumemi.android.codecheck.ui.search.SearchUiState
 import jp.co.yumemi.android.codecheck.ui.search.SearchViewModel
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.Dispatchers
@@ -36,7 +37,7 @@ class SearchViewModelTest {
     fun kotlinで検索したときに正常に返り値が得られること() {
         runTest {
             viewModel.search("kotlin")
-            assertEquals(viewModel.result.value, MockApi().baseItems)
+            assertEquals(viewModel.result.value, SearchUiState.Success(MockApi().baseItems))
         }
     }
 
@@ -45,7 +46,7 @@ class SearchViewModelTest {
     fun 空文字で検索したときに正常に返り値が得られること() {
         runTest {
             viewModel.search("")
-            assertEquals(viewModel.result.value, emptyList<Item>())
+            assertEquals(viewModel.result.value, SearchUiState.Success(emptyList<Item>()))
         }
     }
 }
