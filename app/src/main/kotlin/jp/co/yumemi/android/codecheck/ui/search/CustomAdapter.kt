@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import jp.co.yumemi.android.codecheck.util.DiffUtil
 import jp.co.yumemi.android.codecheck.R
 import jp.co.yumemi.android.codecheck.model.Item
+import jp.co.yumemi.android.codecheck.util.DiffUtil
 
 /**
  * RecyclerView用のAdapter
