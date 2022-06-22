@@ -49,7 +49,7 @@ class SearchViewModelTest {
     fun 空文字で検索したときに正常に返り値が得られること() {
         runTest {
             viewModel.search("")
-            assertEquals(viewModel.result.value, SearchUiState.Success(emptyList<Item>()))
+            assertEquals(viewModel.result.value, SearchUiState.EmptyInput)
         }
     }
 }
