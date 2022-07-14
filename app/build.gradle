@@ -54,7 +54,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.3"
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.3'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
     implementation 'io.ktor:ktor-client-android:2.0.2'
     testImplementation 'io.ktor:ktor-client-mock:2.0.2'
 
