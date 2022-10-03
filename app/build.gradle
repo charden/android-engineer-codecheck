@@ -55,7 +55,7 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.3"
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.3'
-    implementation 'io.ktor:ktor-client-android:2.0.2'
+    implementation 'io.ktor:ktor-client-android:2.1.2'
     testImplementation 'io.ktor:ktor-client-mock:2.0.2'
 
     implementation 'io.coil-kt:coil:2.1.0'
